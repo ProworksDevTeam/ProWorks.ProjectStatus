@@ -1,11 +1,13 @@
 <template>
   <div class="charts">
     <h1>Current Project Status</h1>
-    <div class="chartContainer" v-for="chart in charts" :key="chart.id">
-      <a :href="chart.report" v-if="chart.report">
-        <div class="chart" :id="'chart-' + chart.id"></div>
-      </a>
-      <div class="chart" :id="'chart-' + chart.id" v-else></div>
+    <div>
+      <div class="chartContainer" v-for="chart in charts" :key="chart.id">
+        <a :href="chart.report" v-if="chart.report">
+          <div class="chart" :id="'chart-' + chart.id"></div>
+        </a>
+        <div class="chart" :id="'chart-' + chart.id" v-else></div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,11 +38,14 @@ export default {
 
         const rows = []
         const colors = []
+        const slices = []
         if (data.consumed >= data.allowed) {
           rows.push(['Allowed', data.allowed])
           rows.push(['Overage', data.consumed - data.allowed])
           colors.push('#a8a500')
           colors.push('#de0000')
+          slices.push({})
+          slices.push({ offset: 0.3, textStyle: { bold: true } })
         } else {
           rows.push(['Used', data.consumed])
           rows.push(['Remaining', data.allowed - data.consumed])
@@ -57,7 +62,8 @@ export default {
           title: data.name,
           width: 500,
           height: 400,
-          colors
+          colors,
+          slices
         }
 
         const chart = new google.visualization.PieChart(document.getElementById('chart-' + data.id))

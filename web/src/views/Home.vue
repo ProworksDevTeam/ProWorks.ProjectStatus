@@ -1,11 +1,9 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="ProWorks logo" src="../assets/logo.png">
     <div>
-      <a href="/login">Login</a>
-    </div>
-    <div>
-      <router-link to="/charts">View the current charts</router-link>
+      <h1>ProWorks Project Status</h1>
+      <p>Welcome to the ProWorks Project Status page.  Click on a link above to login, and then you can view the status</p>
     </div>
   </div>
 </template>
