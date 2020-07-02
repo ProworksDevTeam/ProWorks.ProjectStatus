@@ -2,7 +2,10 @@
   <div class="charts">
     <h1>Current Project Status</h1>
     <div class="chartContainer" v-for="chart in charts" :key="chart.id">
-      <div class="chart" :id="'chart-' + chart.id"></div>
+      <a :href="chart.report" v-if="chart.report">
+        <div class="chart" :id="'chart-' + chart.id"></div>
+      </a>
+      <div class="chart" :id="'chart-' + chart.id" v-else></div>
     </div>
   </div>
 </template>
