@@ -1,0 +1,29 @@
+{
+    "routes": [
+        {
+            "route": "/login",
+            "serve": "/.auth/login/google"
+        },
+        {
+            "route": "/logout",
+            "serve": "/.auth/logout"
+        },
+        {
+            "route": "/api/*",
+            "allowedRoles": ["authenticated"]
+        },
+        {
+            "route": "/charts",
+            "serve": "/index.html",
+            "statusCode": 200,
+            "allowedRoles": ["authenticated"]
+        }
+    ],
+    "platformErrorOverrides": [
+      {
+        "errorType": "Unauthenticated",
+        "statusCode": "302",
+        "serve": "/login"
+      }
+    ]
+}
