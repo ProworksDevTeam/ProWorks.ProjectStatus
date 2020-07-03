@@ -35,10 +35,10 @@ function validateRequest(context, req, projects, timeProjects, timeClients) {
     };
 }
 
-module.exports = async function (context, req, projects, timeTasks, timeClients) {
+module.exports = async function (context, req, projects, timeProjects, timeClients) {
     context.log('Received a TaskCreated request');
 
-    const result = validateRequest(context, req, projects || [], timeTasks || {seq:1}, timeClients || {seq:1});
+    const result = validateRequest(context, req, projects || [], timeProjects || {seq:1}, timeClients || {seq:1});
     if (!result) return;
 
     if (!result.timeProject) {
@@ -51,6 +51,6 @@ module.exports = async function (context, req, projects, timeTasks, timeClients)
     return {
         res: {},
         outProjects: result.projects,
-        outTimeTasks: result.timeProjects
+        outTimeProjects: result.timeProjects
     };
 }

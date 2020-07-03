@@ -22,16 +22,16 @@
       "direction": "in"
     },
     {
-      "name": "timeTasks",
+      "name": "timeProjects",
       "type": "blob",
-      "path": "projects/time-tasks.json",
+      "path": "projects/time-projects.json",
       "connection": "DATA_CONNECTION",
       "direction": "in"
     },
     {
-      "name": "timeProjects",
+      "name": "timeClients",
       "type": "blob",
-      "path": "projects/time-projects.json",
+      "path": "projects/time-clients.json",
       "connection": "DATA_CONNECTION",
       "direction": "in"
     },
@@ -43,9 +43,9 @@
       "direction": "out"
     },
     {
-      "name": "outTimeTasks",
+      "name": "outTimeProjects",
       "type": "blob",
-      "path": "projects/time-tasks.json",
+      "path": "projects/time-projects.json",
       "connection": "DATA_CONNECTION",
       "direction": "out"
     }

@@ -20,14 +20,12 @@ function validateRequest(context, req, timeEntries) {
     return {
         timeEntries,
         timeEntry: timeEntries[time.id],
-        timeTask,
-        timeProject,
         time
     };
 }
 
 module.exports = async function (context, req, timeEntries) {
-    context.log('Received a TaskCreated request');
+    context.log('Received a TimeEntryDeleted request');
 
     const result = validateRequest(context, req, timeEntries || {});
     if (!result) return;
