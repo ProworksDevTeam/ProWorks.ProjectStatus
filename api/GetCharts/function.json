@@ -14,6 +14,20 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+    {
+      "name": "projects",
+      "type": "blob",
+      "path": "projects/projects.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
+    },
+    {
+      "name": "preferences",
+      "type": "blob",
+      "path": "projects/preferences.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
     }
   ]
 }
