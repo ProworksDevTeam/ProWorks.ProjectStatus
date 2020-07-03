@@ -15,18 +15,18 @@
       "name": "res"
     },
     {
-      "name": "projects",
+      "name": "timeEntries",
       "type": "blob",
-      "path": "projects/projects.json",
+      "path": "projects/time-entries.json",
       "connection": "DATA_CONNECTION",
       "direction": "in"
     },
     {
-      "name": "preferences",
+      "name": "outTimeEntries",
       "type": "blob",
-      "path": "projects/preferences.json",
+      "path": "projects/time-entries.json",
       "connection": "DATA_CONNECTION",
-      "direction": "in"
+      "direction": "out"
     }
   ]
 }

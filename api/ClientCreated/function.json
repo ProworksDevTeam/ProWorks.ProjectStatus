@@ -22,11 +22,25 @@
       "direction": "in"
     },
     {
-      "name": "preferences",
+      "name": "timeClients",
       "type": "blob",
-      "path": "projects/preferences.json",
+      "path": "projects/time-clients.json",
       "connection": "DATA_CONNECTION",
       "direction": "in"
+    },
+    {
+      "name": "outProjects",
+      "type": "blob",
+      "path": "projects/projects.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "out"
+    },
+    {
+      "name": "outTimeClients",
+      "type": "blob",
+      "path": "projects/time-clients.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "out"
     }
   ]
 }

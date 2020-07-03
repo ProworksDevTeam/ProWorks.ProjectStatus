@@ -1,0 +1,75 @@
+{
+    "bindings": [
+      {
+        "authLevel": "anonymous",
+        "type": "httpTrigger",
+        "direction": "in",
+        "name": "req",
+        "methods": [
+          "post"
+        ]
+      },
+      {
+        "type": "http",
+        "direction": "out",
+        "name": "res"
+      },
+      {
+        "name": "projects",
+        "type": "blob",
+        "path": "projects/projects.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "in"
+      },
+      {
+        "name": "timeTasks",
+        "type": "blob",
+        "path": "projects/time-tasks.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "in"
+      },
+      {
+        "name": "timeProjects",
+        "type": "blob",
+        "path": "projects/time-projects.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "in"
+      },
+      {
+        "name": "timeClients",
+        "type": "blob",
+        "path": "projects/time-clients.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "in"
+      },
+      {
+        "name": "outProjects",
+        "type": "blob",
+        "path": "projects/projects.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "out"
+      },
+      {
+        "name": "outTimeTasks",
+        "type": "blob",
+        "path": "projects/time-tasks.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "out"
+      },
+      {
+        "name": "outTimeProjects",
+        "type": "blob",
+        "path": "projects/time-projects.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "out"
+      },
+      {
+        "name": "outTimeClients",
+        "type": "blob",
+        "path": "projects/time-clients.json",
+        "connection": "DATA_CONNECTION",
+        "direction": "out"
+      }
+    ]
+  }
+  

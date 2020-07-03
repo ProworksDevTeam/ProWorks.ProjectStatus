@@ -59,9 +59,10 @@ export default {
         table.addRows(rows)
 
         const options = {
-          title: data.name,
+          title: data.name + '\r\n' + (data.status === 'good' ? 'Good' : (data.status === 'watch' ? '-Watch-' : '*** OVERAGE ***')),
           width: 500,
           height: 400,
+          pieSliceText: 'value',
           colors,
           slices
         }

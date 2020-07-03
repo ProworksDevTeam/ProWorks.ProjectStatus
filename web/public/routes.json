@@ -9,6 +9,42 @@
             "serve": "/.auth/logout"
         },
         {
+            "route": "/api/UpdateLookups",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/UpdateTime",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/PruneTime",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/TaskCreated",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/ProjectCreated",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/ClientCreated",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/TimeEntryCreated",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/TimeEntryUpdated",
+            "allowedRoles": ["anonymous"]
+        },
+        {
+            "route": "/api/TimeEntryDeleted",
+            "allowedRoles": ["anonymous"]
+        },
+        {
             "route": "/api/*",
             "allowedRoles": ["authenticated"]
         },

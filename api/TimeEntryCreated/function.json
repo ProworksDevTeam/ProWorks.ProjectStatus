@@ -1,0 +1,46 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "timeEntries",
+      "type": "blob",
+      "path": "projects/time-entries.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
+    },
+    {
+      "name": "timeTasks",
+      "type": "blob",
+      "path": "projects/time-tasks.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
+    },
+    {
+      "name": "timeProjects",
+      "type": "blob",
+      "path": "projects/time-projects.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
+    },
+    {
+      "name": "outTimeEntries",
+      "type": "blob",
+      "path": "projects/time-entries.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "out"
+    }
+  ]
+}
