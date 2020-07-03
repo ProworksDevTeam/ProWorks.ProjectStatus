@@ -39,7 +39,7 @@ module.exports = async function (context, req, projects, timeClients) {
     helpers.updateProjectIds(result.projects, null, null, result.timeClients);
 
     return {
-        res = {},
+        res: {},
         outProjects: result.projects,
         outTimeClients: result.timeClients
     };

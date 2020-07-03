@@ -35,7 +35,7 @@ module.exports = async function (context, req, timeEntries) {
     if (result.timeEntry) delete result.timeEntries[result.time.id];
 
     return {
-        res = {},
+        res: {},
         outTimeEntries: result.timeEntries
     };
 }

@@ -57,7 +57,7 @@ module.exports = async function (context, req, timeEntries, timeTasks, timeProje
     te.h = helpers.getHours(result.time.timeInterval.duration);
 
     return {
-        res = {},
+        res: {},
         outTimeEntries: result.timeEntries
     };
 }
