@@ -46,7 +46,7 @@ module.exports = async function (context, req, projects, timeTasks, timeProjects
         result.timeTasks.seq++;
     } else { result.timeTask.n = result.task.name; result.timeTask.p = result.timeProject.i; }
 
-    helpers.updateProjectIds(result.projects, result.timeTasks);
+    helpers.updateProjectIds(result.projects, result.timeTasks, result.timeProjects);
 
     return {
         res: {},
