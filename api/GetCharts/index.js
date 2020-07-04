@@ -15,13 +15,17 @@ function validateRequest(context, req, projects, preferences, timeEntries) {
         return false;
     }
 
-    const current = helpers.getCurrentProjects(projects, result.preferences);
+    const hd = parseInt(req.query.historicalDays);
+    const historicalDays = Number.isInteger(hd) ? hd : 7;
+
+    const current = helpers.getCurrentProjects(projects, result.preferences, historicalDays);
     if (!current || current.length === 0) {
         context.log('Invalid request - ' + JSON.stringify(req));
         context.res = { headers: {'Content-Type':'application/json'}, body: "{\"charts\":[]}" };
         return false;
     }
 
+    result.historicalDays = historicalDays;
     result.projects = current;
     result.timeEntries = timeEntries;
 

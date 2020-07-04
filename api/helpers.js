@@ -22,9 +22,9 @@ function initialize(req, preferences) {
     return auth ? {auth, preferences} : "Could not verify authentication";
 }
 
-function getCurrentProjects(projects, preferences) {
+function getCurrentProjects(projects, preferences, historicalDays) {
     if (!projects) return [];
-    const minEndNumber = getDateNumber(new Date(), true) - 7;
+    const minEndNumber = getDateNumber(new Date(), true) - historicalDays;
     const sort = preferences ? preferences.projectSortOrder : null;
     let current = projects.filter(p => p.endNumber === null || p.endNumber >= minEndNumber);
 
@@ -45,12 +45,12 @@ function getCurrentProjects(projects, preferences) {
 }
 
 function getTimeEntries(projects, timeEntries) {
-    if (!timeEntries || !timeEntries.length || !projects || !projects.length) return [];
+    if (!timeEntries || !projects || !projects.length) return [];
 
     // First find the earliest start date for any active project, then get all matching entries from that point as an array rather than an object
     const nowNumber = getDateNumber(new Date(), true);
     const minStartNumber = projects.reduce((a, p) => a < p.startNumber ? a : p.startNumber, nowNumber);
-    const entries = Object.entries(timeEntries).filter(p => p[1].s >= minStartNumber);
+    const entries = Object.entries(timeEntries).filter(p => p[1].s >= minStartNumber).map(p => p[1]);
 
     return entries;
 }
