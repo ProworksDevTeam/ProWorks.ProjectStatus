@@ -23,93 +23,36 @@ function initialize(req, preferences) {
 }
 
 function getCurrentProjects(projects, preferences) {
+    if (!projects) return [];
+    const minEndNumber = getDateNumber(new Date(), true) - 7;
+    const sort = preferences ? preferences.projectSortOrder : null;
+    let current = projects.filter(p => p.endNumber === null || p.endNumber >= minEndNumber);
+
+    if (!sort || !sort.length) return current;
+
     // Read the projects to identify which ones are active, and then read the preferences for the current user to sort the projects
-    return [
-        {
-            id: 1,
-            name: "USDA-ARS Scientific Discoveries Development",
-            allowed: 748,
-            clientEquals: 'USDA-ARS',
-            clientId: 23,
-            projectIncludeContains: null,
-            projectIncludeIds: null,
-            projectExcludeContains: "Internal",
-            projectExcludeIds: [432],
-            taskStartsWith: null,
-            taskIds: null,
-            startDate: '2020-01-01',
-            startNumber: 18002,
-            endDate: '2020-06-15',
-            endNumber: 18141,
-            report: 'https://clockify.me/reports/detailed?start=2020-01-01T00:00:00.000Z&end=2020-12-31T23:59:59.999Z&filterValuesData=%7B%22clients%22:%5B%225e1f51ea5f73426d90ecb26d%22%5D%7D&filterOptions=%7B%22clients%22:%7B%22status%22:%22ACTIVE%22%7D%7D&page=1&pageSize=50'
-        },
-        {
-            id: 2,
-            name: "USDA-ARS Scientific Discoveries Support",
-            allowed: 90,
-            clientEquals: 'USDA-ARS',
-            clientId: 23,
-            projectIncludeContains: null,
-            projectIncludeIds: null,
-            projectExcludeContains: "Internal",
-            projectExcludeIds: [432],
-            taskStartsWith: null,
-            taskIds: null,
-            startDate: '2020-06-16',
-            startNumber: 18142,
-            endDate: null,
-            endNumber: null,
-            report: 'https://clockify.me/reports/detailed?start=2020-01-01T00:00:00.000Z&end=2020-12-31T23:59:59.999Z&filterValuesData=%7B%22clients%22:%5B%225e1f51ea5f73426d90ecb26d%22%5D%7D&filterOptions=%7B%22clients%22:%7B%22status%22:%22ACTIVE%22%7D%7D&page=1&pageSize=50'
-        }
-    ];
+    current.sort((a,b) => {
+        let posA = sort.indexOf(a);
+        let posB = sort.indexOf(b);
+
+        if (posA < 0 && posB >= 0) return 1;
+        if (posA >= 0 && posB < 0) return -1;
+        if (posA < 0 && posB < 0) return a.name.localeCompare(b.name);
+        return posA - posB;
+    });
+
+    return current;
 }
 
-function getTimeEntries(timeEntries) {
+function getTimeEntries(projects, timeEntries) {
+    if (!timeEntries || !timeEntries.length || !projects || !projects.length) return [];
+
     // First find the earliest start date for any active project, then get all matching entries from that point as an array rather than an object
-    return [
-        {
-            c: 23,
-            p: 867,
-            t: 14323,
-            s: 18141, // MS since epoch
-            h: 700
-        },
-        {
-            c: 23,
-            p: 867,
-            t: 14323,
-            s: 18121, // MS since epoch
-            h: 23
-        },
-        {
-            c: 23,
-            p: 867,
-            t: 14323,
-            s: 18041, // MS since epoch
-            h: 12.25
-        },
-        {
-            c: 23,
-            p: 867,
-            t: 14323,
-            s: 18142, // MS since epoch
-            h: 12.25
-        },
-        {
-            c: 24,
-            p: 868,
-            t: 14324,
-            s: 18131, // MS since epoch
-            h: 16.75
-        },
-        {
-            c: 23,
-            p: 867,
-            t: 14323,
-            s: 18111, // MS since epoch
-            h: 10
-        }
-    ]
+    const nowNumber = getDateNumber(new Date(), true);
+    const minStartNumber = projects.reduce((a, p) => a < p.startNumber ? a : p.startNumber, nowNumber);
+    const entries = Object.entries(timeEntries).filter(p => p[1].s >= minStartNumber);
+
+    return entries;
 }
 
 function createCharts(projects, timeEntries) {

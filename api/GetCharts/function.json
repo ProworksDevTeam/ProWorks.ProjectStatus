@@ -27,6 +27,13 @@
       "path": "projects/preferences.json",
       "connection": "DATA_CONNECTION",
       "direction": "in"
+    },
+    {
+      "name": "timeEntries",
+      "type": "blob",
+      "path": "projects/time-entries.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
     }
   ]
 }

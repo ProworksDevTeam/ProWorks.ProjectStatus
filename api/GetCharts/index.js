@@ -1,6 +1,6 @@
 const helpers = require('../helpers')
 
-function validateRequest(context, req, projects, preferences) {
+function validateRequest(context, req, projects, preferences, timeEntries) {
     // Ensure the user is logged in, and that we could retrieve projects and preferences, and then identify the current projects to work with   
     let result = helpers.initialize(req, preferences);
 
@@ -23,18 +23,19 @@ function validateRequest(context, req, projects, preferences) {
     }
 
     result.projects = current;
+    result.timeEntries = timeEntries;
 
     return result;
 }
 
-module.exports = async function (context, req, projects, preferences) {
+module.exports = async function (context, req, projects, preferences, timeEntries) {
     context.log('Received a GetCharts request');
 
-    const result = validateRequest(context, req, projects, preferences);
+    const result = validateRequest(context, req, projects, preferences, timeEntries);
     if (!result) return;
 
-    const timeEntries = helpers.getTimeEntries(result.projects);
-    const charts = helpers.createCharts(result.projects, timeEntries);
+    const projectEntries = helpers.getTimeEntries(result.projects, result.timeEntries);
+    const charts = helpers.createCharts(result.projects, projectEntries);
 
     context.res = {
         headers: {
