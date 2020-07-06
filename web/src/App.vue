@@ -4,6 +4,7 @@
       <router-link to="/">Home</router-link> |
       <span v-if="loggedIn">
         <router-link to="/charts">Status</router-link> |
+        <router-link to="/projects">Projects</router-link> |
         <a href="/logout">Logout</a>
       </span>
       <span v-else>

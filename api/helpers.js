@@ -16,17 +16,20 @@ function initialize(req, preferences) {
     if (typeof header !== 'string' || !header || header.length === 0) return "Missing authentication header";
     const encoded = Buffer.from(header, "base64");
     const auth = JSON.parse(encoded.toString("ascii"));
+    if (!auth || !auth.userDetails) return "Could not verify authentication";
 
-    preferences = typeof preferences === 'object' && preferences[auth.userDetails] ? preferences[auth.userDetails] : {};
+    if (typeof preferences !== 'object') preferences = {};
+    if (!preferences[auth.userDetails]) preferences[auth.userDetails] = {};
+    const userPreferences = preferences[auth.userDetails];
 
-    return auth ? {auth, preferences} : "Could not verify authentication";
+    return { auth, preferences, userPreferences };
 }
 
 function getCurrentProjects(projects, preferences, historicalDays) {
     if (!projects) return [];
-    const minEndNumber = getDateNumber(new Date(), true) - historicalDays;
+    const minEndNumber = Number.isInteger(historicalDays) ? getDateNumber(new Date(), true) - historicalDays : null;
     const sort = preferences ? preferences.projectSortOrder : null;
-    let current = projects.filter(p => p.endNumber === null || p.endNumber >= minEndNumber);
+    let current = minEndNumber === null ? projects : projects.filter(p => p.endNumber === null || p.endNumber >= minEndNumber);
 
     if (!sort || !sort.length) return current;
 

@@ -1,0 +1,32 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "preferences",
+      "type": "blob",
+      "path": "projects/preferences.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "in"
+    },
+    {
+      "name": "outPreferences",
+      "type": "blob",
+      "path": "projects/preferences.json",
+      "connection": "DATA_CONNECTION",
+      "direction": "out"
+    }
+  ]
+}

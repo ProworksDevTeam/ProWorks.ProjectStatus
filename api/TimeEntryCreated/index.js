@@ -17,7 +17,7 @@ function validateRequest(context, req, timeEntries, timeTasks, timeProjects) {
         return false;
     }
 
-    const timeTask = time.taskId ? timeTasks[time.taskId] : null;
+    const timeTask = time.task && time.task.id ? timeTasks[time.task.id] : (time.taskId ? timeTasks[time.taskId] : null);
     if (!timeTask) {
         context.log('Task not found - ' + JSON.stringify(req));
         context.res = { status: 500, body: 'Missing Task' };
@@ -25,7 +25,7 @@ function validateRequest(context, req, timeEntries, timeTasks, timeProjects) {
         return false;
     }
 
-    const timeProject = time.projectId ? timeProjects[time.projectId] : null;
+    const timeProject = time.project && time.project.id ? timeProjects[time.project.id] : (time.projectId ? timeProjects[time.projectId] : null);
     if (!timeProject) {
         context.log('Project not found - ' + JSON.stringify(req));
         context.res = { status: 500, body: 'Missing Project' };

@@ -1,6 +1,6 @@
 const helpers = require('../helpers')
 
-function validateRequest(context, req, projects, preferences, timeEntries) {
+function validateRequest(context, req, projects, preferences) {
     // Ensure the user is logged in, and that we could retrieve projects and preferences, and then identify the current projects to work with   
     let result = helpers.initialize(req, preferences);
 
@@ -15,36 +15,30 @@ function validateRequest(context, req, projects, preferences, timeEntries) {
         return false;
     }
 
-    const hd = parseInt(req.query.historicalDays);
-    const historicalDays = Number.isInteger(hd) ? hd : 7;
-
-    const current = helpers.getCurrentProjects(projects, result.userPreferences, historicalDays);
+    const current = helpers.getCurrentProjects(projects, result.userPreferences);
     if (!current || current.length === 0) {
         context.log('Invalid request - ' + JSON.stringify(req));
         context.res = { headers: {'Content-Type':'application/json'}, body: "{\"charts\":[]}" };
         return false;
     }
 
-    result.historicalDays = historicalDays;
     result.projects = current;
-    result.timeEntries = timeEntries;
 
     return result;
 }
 
-module.exports = async function (context, req, projects, preferences, timeEntries) {
+module.exports = async function (context, req, projects, preferences) {
     context.log('Received a GetCharts request');
 
-    const result = validateRequest(context, req, projects, preferences, timeEntries);
+    const result = validateRequest(context, req, projects, preferences);
     if (!result) return;
 
-    const projectEntries = helpers.getTimeEntries(result.projects, result.timeEntries);
-    const charts = helpers.createCharts(result.projects, projectEntries);
-
-    context.res = {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({charts})
+    return {
+        res: {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({projects:result.projects})
+        }
     };
 }

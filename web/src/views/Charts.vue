@@ -83,7 +83,7 @@ export default {
       })
     }
 
-    const resp = await fetch(API_PATH + '/GetCharts', { cache: 'no-cache' })
+    const resp = await fetch(API_PATH + '/GetCharts?historicalDays=30', { cache: 'no-cache' })
     if (resp.status !== 200) return
 
     const json = await resp.json()
