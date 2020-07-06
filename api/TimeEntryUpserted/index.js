@@ -1,8 +1,9 @@
 const helpers = require('../helpers')
 const TIME_ENTRY_CREATED_SECRET = process.env.TIME_ENTRY_CREATED_SECRET;
+const TIME_ENTRY_UPDATED_SECRET = process.env.TIME_ENTRY_UPDATED_SECRET;
 
 function validateRequest(context, req, timeEntries, timeTasks, timeProjects) {
-    if (!req || !req.headers || req.headers['clockify-signature'] !== TIME_ENTRY_CREATED_SECRET) {
+    if (!req || !req.headers || !(req.headers['clockify-signature'] === TIME_ENTRY_CREATED_SECRET || req.headers['clockify-signature'] === TIME_ENTRY_UPDATED_SECRET)) {
         context.log('Invalid request - ' + JSON.stringify(req));
         context.res = { status: 500, body: 'Invalid Request' };
 

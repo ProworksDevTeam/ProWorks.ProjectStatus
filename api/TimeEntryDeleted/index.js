@@ -1,8 +1,7 @@
-const helpers = require('../helpers')
-const TIME_ENTRY_CREATED_SECRET = process.env.TIME_ENTRY_CREATED_SECRET;
+const TIME_ENTRY_DELETED_SECRET = process.env.TIME_ENTRY_DELETED_SECRET;
 
 function validateRequest(context, req, timeEntries) {
-    if (!req || !req.headers || req.headers['clockify-signature'] !== TIME_ENTRY_CREATED_SECRET) {
+    if (!req || !req.headers || req.headers['clockify-signature'] !== TIME_ENTRY_DELETED_SECRET) {
         context.log('Invalid request - ' + JSON.stringify(req));
         context.res = { status: 500, body: 'Invalid Request' };
 
