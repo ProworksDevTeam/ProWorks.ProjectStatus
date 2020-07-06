@@ -37,10 +37,6 @@
             "allowedRoles": ["anonymous"]
         },
         {
-            "route": "/api/TimeEntryUpdated",
-            "allowedRoles": ["anonymous"]
-        },
-        {
             "route": "/api/TimeEntryDeleted",
             "allowedRoles": ["anonymous"]
         },

@@ -43,7 +43,7 @@ function validateRequest(context, req, timeEntries, timeTasks, timeProjects) {
 }
 
 module.exports = async function (context, req, timeEntries, timeTasks, timeProjects) {
-    context.log('Received a TimeEntryCreated request');
+    context.log('Received a TimeEntryUpserted request');
 
     const result = validateRequest(context, req, timeEntries || {}, timeTasks || {seq:1}, timeProjects || {seq:1});
     if (!result) return;

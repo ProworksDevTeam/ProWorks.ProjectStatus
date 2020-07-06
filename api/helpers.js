@@ -53,7 +53,7 @@ function getTimeEntries(projects, timeEntries) {
     // First find the earliest start date for any active project, then get all matching entries from that point as an array rather than an object
     const nowNumber = getDateNumber(new Date(), true);
     const minStartNumber = projects.reduce((a, p) => a < p.startNumber ? a : p.startNumber, nowNumber);
-    const entries = Object.entries(timeEntries).filter(p => p[1].s >= minStartNumber).map(p => p[1]);
+    const entries = Object.entries(timeEntries).map(p => p[1]).filter(e => e && e.s && e.s >= minStartNumber);
 
     return entries;
 }
