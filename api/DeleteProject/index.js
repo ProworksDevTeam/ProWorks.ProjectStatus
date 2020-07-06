@@ -29,8 +29,11 @@ module.exports = async function (context, req, projects) {
     if (!result) return;
 
     if (!Array.isArray(projects)) projects = [];
-    const projectIdx = projects.findIndex(p => p.i === result.projectId);
-    if (projectIdx >= 0) projects.splice(projectIdx, 1);
+    const projectIdx = projects.findIndex(p => p.id === result.projectId);
+    if (projectIdx >= 0) {
+        console.log("Removing the project at index " + projectIdx + " with ID #" + result.projectId);
+        projects.splice(projectIdx, 1);
+    } else console.log("Did not find any project with ID #" + result.projectId);
 
     return {
         res: {},

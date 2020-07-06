@@ -2,7 +2,7 @@ const helpers = require('../helpers')
 
 function validateRequest(context, req, timeTasks, timeProjects, timeClients) {
     // Ensure the user is logged in, and that we could retrieve projects and preferences, and then identify the current projects to work with   
-    let result = helpers.initialize(req, preferences);
+    let result = helpers.initialize(req);
 
     const project = !req.body || typeof req.body.project !== 'object' ? null : req.body.project;
 
@@ -26,7 +26,7 @@ function validateRequest(context, req, timeTasks, timeProjects, timeClients) {
 }
 
 module.exports = async function (context, req, timeTasks, timeProjects, timeClients) {
-    context.log('Received a SetOrder request');
+    context.log('Received a FindProjectMatches request');
 
     const result = validateRequest(context, req, timeTasks, timeProjects, timeClients);
     if (!result) return;
@@ -34,8 +34,8 @@ module.exports = async function (context, req, timeTasks, timeProjects, timeClie
     helpers.updateProjectIds([result.project], result.timeTasks, result.timeProjects, result.timeClients);
 
     const clientId = result.project.clientId;
-    const timeClient = clientId ? result.timeClients.find(c => c.i === clientId) : null;
-    const client = timeClient ? { id: client.i, name: client.n } : null;
+    const timeClient = clientId ? Object.entries(result.timeClients).map(p => p[1]).find(c => c.i === clientId) : null;
+    const client = timeClient ? { id: timeClient.i, name: timeClient.n } : null;
     const clientProjects = Object.entries(result.timeProjects).map(p => p[1]).filter(p => p && p.c === clientId).map(p => { return { id: p.i, name: p.n }; });
     const projectIncludeIds = result.project.projectIncludeIds;
     const projectExcludeIds = result.project.projectExcludeIds;
@@ -53,7 +53,7 @@ module.exports = async function (context, req, timeTasks, timeProjects, timeClie
     }
 
     const projectIds = projects.map(p => p.id);
-    const projectTasks = Object.entries(result.timeTasks).map(p => p[1]).filter(t => t && projectIds.indexOf(t.c) >= 0).map(p => { return { id: p.i, name: p.n }; });
+    const projectTasks = Object.entries(result.timeTasks).map(p => p[1]).filter(t => t && projectIds.indexOf(t.p) >= 0).map(t => { return { id: t.i, name: t.n }; });
     const taskIds = result.project.taskIds;
     const tasks = [];
 

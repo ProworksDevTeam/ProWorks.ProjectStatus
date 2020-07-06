@@ -18,8 +18,8 @@ function validateRequest(context, req, projects, timeEntries, timeTasks, timePro
 
     result.project = (req.body.id ? result.projects.find(e => e.id === req.body.id) : null) || {};
     if (!result.project.id) {
+        result.project.id = result.projects.reduce((p, v) => v && v.id && p < v.id ? v.id : p, 1) + 1;
         result.projects.push(result.project);
-        result.project.id = result.projects.length;
     }
 
     result.project.name = req.body.name;
@@ -92,6 +92,7 @@ module.exports = async function (context, req, projects, timeEntries, timeTasks,
             },
             body: JSON.stringify({project: result.project})
         },
+        outProjects: result.projects,
         outTimeEntries: result.timeEntries
     };
 }
