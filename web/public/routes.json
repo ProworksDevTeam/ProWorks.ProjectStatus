@@ -33,7 +33,7 @@
             "allowedRoles": ["anonymous"]
         },
         {
-            "route": "/api/TimeEntryCreated",
+            "route": "/api/TimeEntryUpserted",
             "allowedRoles": ["anonymous"]
         },
         {
